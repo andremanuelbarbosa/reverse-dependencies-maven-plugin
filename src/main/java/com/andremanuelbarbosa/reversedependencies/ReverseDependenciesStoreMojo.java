@@ -1,4 +1,4 @@
-package com.andremanuelbarbosa.reverse.dependencies.maven.plugin;
+package com.andremanuelbarbosa.reversedependencies;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -10,7 +10,7 @@ import org.apache.maven.project.MavenProject;
  * 
  * @goal store
  * @requiresProject true
- * @author andremanuelbarbosa
+ * @author Andre Barbosa <andremanuelbarbosa@gmail.com>
  */
 public class ReverseDependenciesStoreMojo extends AbstractMojo {
 
@@ -23,21 +23,30 @@ public class ReverseDependenciesStoreMojo extends AbstractMojo {
    */
   private MavenProject mavenProject;
 
-  public ReverseDependenciesStoreMojo() {
+  /**
+   * The Neo4J Location
+   * 
+   * @parameter expression="${neo4j.location}"
+   *            default-value="http://localhost:7474"
+   */
+  private String neo4jLocation;
 
+  public ReverseDependenciesStoreMojo() {
+    //
   }
 
-  protected ReverseDependenciesStoreMojo(MavenProject mavenProject) {
+  protected ReverseDependenciesStoreMojo(MavenProject mavenProject, String neo4jLocation) {
 
     this.mavenProject = mavenProject;
+    this.neo4jLocation = neo4jLocation;
   }
 
   public void execute() throws MojoExecutionException, MojoFailureException {
-    
-     mavenProject.getDependencies();
-    
-    // TODO Auto-generated method stub
 
     getLog().info("running plugin");
+
+    mavenProject.getDependencies();
+
+    // TODO Auto-generated method stub
   }
 }
